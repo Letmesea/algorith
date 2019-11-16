@@ -28,13 +28,14 @@ public class BinaryTree<T extends Comparable<T>> {
         bt.root.left = new Entry<Integer>(2);
         bt.root.right = new Entry<Integer>(2);
         bt.root.left.left = new Entry<Integer>(3);
-        bt.root.left.right = new Entry<Integer>(4);
-        bt.root.right.left = new Entry<Integer>(4);
-        bt.root.right.right = new Entry<Integer>(3);
+//        bt.root.left.right = new Entry<Integer>(4);
+        bt.root.right.left = new Entry<Integer>(3);
+//        bt.root.right.right = new Entry<Integer>(4);
 //        bt.root.left.left = new Entry<>(4);
 //        bt.root.left.right = new Entry<>(5);
 //        boolean res = bt.isValidBST(bt.root);
-        boolean res = bt.isSymmetric1(bt.root);
+        boolean res1 = bt.isSymmetric1(bt.root);
+        boolean res2 = bt.isSymmetric2(bt.root);
     }
 
     /**
@@ -52,12 +53,18 @@ public class BinaryTree<T extends Comparable<T>> {
         Stack<Entry<Integer>> s2 = new Stack<Entry<Integer>>();
         Entry<Integer> node1,node2;
         do {
-            while (p1 != null&&p2!=null) {
+            int i=0,j=0;
+            while (p1 != null) {
                 s1.push(p1);
-                s2.push(p2);
                 p1 = p1.left;
-                p2 = p2.right;
+                i++;
             }
+            while (p2!=null){
+                s2.push(p2);
+                p2 = p2.right;
+                j++;
+            }
+            if(i!=j)return false;
             if (!s1.isEmpty()&&!s2.isEmpty()) {
                 node1 = s1.pop();
                 node2 = s2.pop();
@@ -72,6 +79,29 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     /**
+     * 判断是否对称--递归
+     * @param root
+     * @return
+     */
+    public boolean isSymmetric2(Entry<Integer> root) {
+        if (root == null) {
+            return true;
+        }
+        return mioror(root.left, root.right);
+    }
+    private boolean mioror(Entry<Integer> t1, Entry<Integer> t2) {
+        if (t1 == null && t2 == null) {
+            return true;
+        }
+        if (t1 == null || t2 == null) {
+            return false;
+        }
+        if (t1.item != t2.item) {
+            return false;
+        }
+        return mioror(t1.left, t2.right) && mioror(t1.right, t2.left);
+    }
+    /**
      * 判断是否对称--迭代和递归
      * @param root
      * @return
@@ -80,17 +110,36 @@ public class BinaryTree<T extends Comparable<T>> {
         if(root==null){
             return true;
         }
-        List<Integer> llist = new ArrayList<>();
-        List<Integer> rlist = new ArrayList<>();
-        llist.add(root.item);
-        rlist.add(root.item);
+        List<Entry<Integer>> llist = new ArrayList<>();
+        List<Entry<Integer>> rlist = new ArrayList<>();
+        llist.add(root);
+        rlist.add(root);
         prevIteratorL(root.left,llist);
         prevIteratorR(root.right,rlist);
         int llen = llist.size();
         int rlen = rlist.size();
         if(llen==rlen){
             for (int i=0;i<llen;i++){
-                if(llist.get(i)!= rlist.get(i)){
+                if(llist.get(i).left!=null&&rlist.get(i).right!=null){
+                    if(llist.get(i).left.item!=rlist.get(i).right.item){
+                        return false;
+                    }
+                }
+                if(llist.get(i).left==null&&rlist.get(i).right!=null){
+                    return false;
+                }
+                if(llist.get(i).left!=null&&rlist.get(i).right==null){
+                    return false;
+                }
+                if(llist.get(i).right!=null&&rlist.get(i).left!=null){
+                    if(llist.get(i).right.item!=rlist.get(i).left.item){
+                        return false;
+                    }
+                }
+                if(llist.get(i).right==null&&rlist.get(i).left!=null){
+                    return false;
+                }
+                if(llist.get(i).right!=null&&rlist.get(i).left==null){
                     return false;
                 }
             }
@@ -99,16 +148,16 @@ public class BinaryTree<T extends Comparable<T>> {
         }
         return true;
     }
-    public void prevIteratorL(Entry<Integer> e,List<Integer> llist) {
+    public void prevIteratorL(Entry<Integer> e,List<Entry<Integer>> llist) {
         if (e != null) {
-            llist.add(e.item);
+            llist.add(e);
             prevIteratorL(e.left,llist);
             prevIteratorL(e.right,llist);
         }
     }
-    public void prevIteratorR(Entry<Integer> e,List<Integer> rlist) {
+    public void prevIteratorR(Entry<Integer> e,List<Entry<Integer>> rlist) {
         if (e != null) {
-            rlist.add(e.item);
+            rlist.add(e);
             prevIteratorR(e.right,rlist);
             prevIteratorR(e.left,rlist);
 
