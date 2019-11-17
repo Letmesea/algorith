@@ -36,6 +36,38 @@ public class BinaryTree<T extends Comparable<T>> {
 //        boolean res = bt.isValidBST(bt.root);
         boolean res1 = bt.isSymmetric1(bt.root);
         boolean res2 = bt.isSymmetric2(bt.root);
+        List<List<Integer>> lists = bt.levelOrder(bt.root);
+    }
+
+    /**
+     * 层次遍历
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder(Entry<Integer> root) {
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        List<Integer> list1;
+        if(root==null){
+            return list;
+        }
+        Queue<Entry<Integer>> queue = new ArrayDeque();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            list1 = new ArrayList<>();
+            for(int i = 0; i < size; i++){
+                Entry<Integer> node = queue.poll();
+                list1.add(node.item);
+                if(null != node.left){
+                    queue.offer(node.left);
+                }
+                if(null != node.right){
+                    queue.offer(node.right);
+                }
+            }
+            list.add(list1);
+        }
+        return list;
     }
 
     /**
