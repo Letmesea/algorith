@@ -1,9 +1,6 @@
 package base.array;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * @author Letmesea
@@ -25,14 +22,14 @@ public class TwoNumsSum {
         for (int i = k1; i >= 0 && k <= k1; ) {
             if (nums[i] + nums[k] == target) {
                 for(int j=0;j<b.length;j++){
-                    if(nums[k]==b[j]){
-                        res[0]=j;
+                    if(b[j]==nums[k]){
+                        res[0] = j;
                         break;
                     }
                 }
                 for(int j=b.length-1;j>=0;j--){
-                    if(nums[i]==b[j]){
-                        res[1]=j;
+                    if(b[j]==nums[i]){
+                        res[1] = j;
                         break;
                     }
                 }
@@ -70,8 +67,8 @@ public class TwoNumsSum {
 //        for(int i=0;i<10;i++){
 //            a[i] = random.nextInt(15);
 //        }
-        int[] a = {3,2,2,6,5,7,5};
-        int[] b = twoSum(a, 10);
+        int[] a = {-3, 4,3,90};
+        int[] b = twoSum(a, 0);
         System.out.print(111);
     }
 }
