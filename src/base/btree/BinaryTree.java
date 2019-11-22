@@ -28,15 +28,24 @@ public class BinaryTree<T extends Comparable<T>> {
         bt.root.left = new Entry<Integer>(2);
         bt.root.right = new Entry<Integer>(2);
         bt.root.left.left = new Entry<Integer>(3);
-//        bt.root.left.right = new Entry<Integer>(4);
+        bt.root.left.right = new Entry<Integer>(4);
+        bt.root.left.right.right = new Entry<Integer>(5);
+        bt.root.left.right.right.left = new Entry<Integer>(6);
+        bt.root.left.right.left = new Entry<Integer>(4);
+        bt.root.left.right.left.left = new Entry<Integer>(4);
+        bt.root.left.right.left.right = new Entry<Integer>(4);
         bt.root.right.left = new Entry<Integer>(3);
 //        bt.root.right.right = new Entry<Integer>(4);
 //        bt.root.left.left = new Entry<>(4);
 //        bt.root.left.right = new Entry<>(5);
 //        boolean res = bt.isValidBST(bt.root);
-        boolean res1 = bt.isSymmetric1(bt.root);
-        boolean res2 = bt.isSymmetric2(bt.root);
-        List<List<Integer>> lists = bt.levelOrder(bt.root);
+
+//        boolean res1 = bt.isSymmetric1(bt.root);
+//        boolean res2 = bt.isSymmetric2(bt.root);
+//        List<List<Integer>> lists = bt.levelOrder(bt.root);
+        bt.prevIterator1(bt.root);
+        System.out.println();
+        bt.midIterator1(bt.root);
     }
 
     /**
@@ -319,6 +328,27 @@ public class BinaryTree<T extends Comparable<T>> {
             midIterator(e.right);
         }
     }
+    /**
+     * 中序遍历--迭代
+     * @param root
+     */
+    public void midIterator1(Entry<Integer> root){
+        if (root == null) {
+            return;
+        }
+        Stack<Entry<Integer>> s = new Stack<Entry<Integer>>();
+        do {
+            while (root != null) {
+                s.push(root);
+                root = root.left;
+            }
+            if (!s.isEmpty()) {
+                Entry<Integer> node = s.pop();
+                System.out.print(node.item+" ");
+                root = node.right;
+            }
+        } while (!s.isEmpty() || root != null);
+    }
 
     /**
      * 获取根节点
@@ -330,7 +360,7 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     /**
-     * 前序遍历
+     * 前序遍历--递归
      *
      * @param e 开始遍历元素
      */
@@ -343,6 +373,28 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     /**
+     * 前序遍历--迭代
+     * @param root
+     */
+    public void prevIterator1(Entry<Integer> root){
+        if (root == null) {
+            return;
+        }
+        Stack<Entry<Integer>> s = new Stack<Entry<Integer>>();
+        do {
+            while (root != null) {
+                System.out.print(root.item+" ");
+                s.push(root);
+                root = root.left;
+            }
+            if (!s.isEmpty()) {
+                Entry<Integer> node = s.pop();
+                root = node.right;
+            }
+        } while (!s.isEmpty() || root != null);
+    }
+
+    /**
      * 后续遍历
      *
      * @param e 开始遍历元素
@@ -352,6 +404,29 @@ public class BinaryTree<T extends Comparable<T>> {
             subIterator(e.left);
             subIterator(e.right);
             System.out.print(e.item + " ");
+        }
+    }
+    /**
+     * 后序遍历--迭代
+     * @param root
+     */
+    public void subIterator1(Entry<Integer> root){
+        List<Integer> list = new ArrayList<>();
+        Stack<Entry<Integer>> stack = new Stack<Entry<Integer>>();
+        if (root == null)
+            return;
+        stack.push(root);
+        while (!stack.isEmpty())
+        {
+            Entry<Integer> node = stack.pop();
+            list.add(0,node.item);
+            if (node.left != null)
+                stack.push(node.left);
+            if (node.right != null)
+                stack.push(node.right);
+        }
+        for (int i:list){
+            System.out.print(list.get(i)+" ");
         }
     }
 
