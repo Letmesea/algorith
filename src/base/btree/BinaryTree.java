@@ -40,7 +40,7 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     /**
-     * 层次遍历
+     * 层次遍历--迭代
      * @param root
      * @return
      */
@@ -71,6 +71,28 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     /**
+     * 层次遍历--递归
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder1(Entry<Integer> root){
+        List<List<Integer>> ans=new ArrayList<>();
+        BFS(root,0,ans);
+        return ans;
+    }
+
+    private void BFS(Entry<Integer> root, int depth, List<List<Integer>> ans) {
+        if (root==null) return;
+
+        if (ans.size()<=depth) ans.add(new ArrayList<>());
+
+        ans.get(depth).add(root.item);
+
+        BFS(root.left,depth+1,ans);
+        BFS(root.right,depth+1,ans);
+    }
+
+    /**
      * 判断是否对称--迭代
      * @param root
      * @return
@@ -96,7 +118,9 @@ public class BinaryTree<T extends Comparable<T>> {
                 p2 = p2.right;
                 j++;
             }
-            if(i!=j)return false;
+            if(i!=j) {
+                return false;
+            }
             if (!s1.isEmpty()&&!s2.isEmpty()) {
                 node1 = s1.pop();
                 node2 = s2.pop();
@@ -234,8 +258,12 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public boolean isValidBST(Entry<Integer> root, long minVal, long maxVal) {
-        if (root == null) return true;
-        if (root.item >= maxVal || root.item <= minVal) return false;
+        if (root == null) {
+            return true;
+        }
+        if (root.item >= maxVal || root.item <= minVal) {
+            return false;
+        }
         return isValidBST(root.left, minVal, root.item) && isValidBST(root.right, root.item, maxVal);
     }
 
@@ -257,20 +285,21 @@ public class BinaryTree<T extends Comparable<T>> {
         while (t != null) {
             ret = item.compareTo(t.item);
             p = t;
-            if (ret < 0)
+            if (ret < 0) {
                 t = t.left;
-            else if (ret > 0)
+            } else if (ret > 0) {
                 t = t.right;
-            else {
+            } else {
                 t.item = item;
                 return t.item;
             }
         }
         Entry<T> e = new Entry<>(item, p);
-        if (ret < 0)
+        if (ret < 0) {
             p.left = e;
-        else
+        } else {
             p.right = e;
+        }
         return e.item;
     }
 
@@ -331,12 +360,13 @@ public class BinaryTree<T extends Comparable<T>> {
         int ret;
         for (; t != null; ) {
             ret = item.compareTo(t.item);
-            if (ret < 0)
+            if (ret < 0) {
                 t = t.left;
-            else if (ret > 0)
+            } else if (ret > 0) {
                 t = t.right;
-            else
+            } else {
                 return t;
+            }
         }
         return null;
     }
@@ -359,7 +389,9 @@ public class BinaryTree<T extends Comparable<T>> {
      */
     public boolean remove(T item) {
         Entry<T> delEntry = getEntry(item);
-        if (delEntry == null) return false;
+        if (delEntry == null) {
+            return false;
+        }
         Entry<T> p = delEntry.parent;
         size--;
         if (delEntry.left == null && delEntry.right == null) {
@@ -391,10 +423,11 @@ public class BinaryTree<T extends Comparable<T>> {
                 rc.parent = null;
                 root = rc;
             } else {
-                if (delEntry == p.left)
+                if (delEntry == p.left) {
                     p.left = rc;
-                else
+                } else {
                     p.right = rc;
+                }
                 rc.parent = p;
             }
         } else {//有两个节点,找到后继节点，将值赋给删除节点，然后将后继节点删除掉即可
