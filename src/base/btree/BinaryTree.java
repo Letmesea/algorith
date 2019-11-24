@@ -19,35 +19,112 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public static void main(String[] args) {
         BinaryTree<Integer> bt = new BinaryTree<>();
-//        int[] a = {6,5,3,4,7,2,8};
-//        for(int i :a){
-//            bt.put(i);
-//        }
-//        bt.prevIterator(bt.root);
         bt.root = new Entry<Integer>(1);
         bt.root.left = new Entry<Integer>(2);
         bt.root.right = new Entry<Integer>(2);
         bt.root.left.left = new Entry<Integer>(3);
         bt.root.left.right = new Entry<Integer>(4);
-        bt.root.left.right.right = new Entry<Integer>(5);
-        bt.root.left.right.right.left = new Entry<Integer>(6);
-        bt.root.left.right.left = new Entry<Integer>(4);
-        bt.root.left.right.left.left = new Entry<Integer>(4);
-        bt.root.left.right.left.right = new Entry<Integer>(4);
         bt.root.right.left = new Entry<Integer>(3);
-//        bt.root.right.right = new Entry<Integer>(4);
-//        bt.root.left.left = new Entry<>(4);
-//        bt.root.left.right = new Entry<>(5);
 //        boolean res = bt.isValidBST(bt.root);
 
 //        boolean res1 = bt.isSymmetric1(bt.root);
 //        boolean res2 = bt.isSymmetric2(bt.root);
 //        List<List<Integer>> lists = bt.levelOrder(bt.root);
-        bt.prevIterator1(bt.root);
-        System.out.println();
-        bt.midIterator1(bt.root);
-        System.out.println();
-        bt.subIterator2(bt.root);
+//        bt.prevIterator1(bt.root);
+//        System.out.println();
+//        bt.midIterator1(bt.root);
+//        System.out.println();
+//        bt.subIterator2(bt.root);
+//        int maxLen = bt.maxDepth(bt.root);
+        bt.root = null;
+        bt.root = bt.insert2AvlTree(bt.root,-10);
+        bt.root = bt.insert2AvlTree(bt.root,-3);
+        bt.root = bt.insert2AvlTree(bt.root,0);
+        bt.root = bt.insert2AvlTree(bt.root,5);
+        bt.root = bt.insert2AvlTree(bt.root,9);
+    }
+
+    /**
+     * 有序数组转成-->平衡二叉树
+     * @param nums
+     * @return
+     */
+    public Entry<Integer> sortedArrayToBST(int[] nums) {
+        BinaryTree<Integer> bt = new BinaryTree<>();
+        bt.root = null;
+        for (int i:nums){
+            bt.root = bt   .insert2AvlTree(bt.root,i);
+        }
+        return bt.root;
+    }
+
+    /**
+     * 将一个节点插入到二叉树，并且转成平衡二叉树
+     * @param node
+     * @param key
+     * @return
+     */
+    public Entry<Integer> insert2AvlTree(Entry<Integer> node,int key){
+        if(node==null){
+            return new Entry<Integer>(key);
+        }
+        if(key<node.item){
+            node.left = insert2AvlTree(node.left,key);
+        }else if(key>node.item ){
+            node.right = insert2AvlTree(node.right,key);
+        }else{
+            return node;
+        }
+//        int height = 1 + Math.max(maxDepth(node.left), maxDepth(node.right));
+        int balance = getBalance(node);
+        if (balance > 1 && key < node.left.item) //LL型
+            return ll_rotate(node);
+        if (balance < -1 && key > node.right.item)     //RR型
+            return rr_rotate(node);
+        if (balance > 1 && key > node.left.item)     //LR型
+        {
+            node.left = rr_rotate(node.left);
+            return ll_rotate(node);
+        }
+        if (balance < -1 && key < node.right.item)     //RL型
+        {
+            node.right = ll_rotate(node.right);
+            return rr_rotate(node);
+        }
+        return node;
+    }
+    public Entry<Integer> ll_rotate(Entry<Integer> y){
+        Entry<Integer> x = y.left;
+        y.left = x.right;
+        x.right = y;
+        return x;
+    }
+    public Entry<Integer> rr_rotate(Entry<Integer> y){
+        Entry<Integer> x = y.right;
+        y.right = x.left;
+        x.left = y;
+        return x;
+    }
+    public int getBalance(Entry<Integer> N)
+    {
+        if (N == null)
+            return 0;
+        return maxDepth(N.left) - maxDepth(N.right);
+    }
+
+    /**
+     * 二叉树最大高度
+     * @param root
+     * @return
+     */
+    public int maxDepth(Entry<Integer> root) {
+        if (root == null) {
+            return 0;
+        } else {
+            int left_height = maxDepth(root.left);
+            int right_height = maxDepth(root.right);
+            return java.lang.Math.max(left_height, right_height) + 1;
+        }
     }
 
     /**
