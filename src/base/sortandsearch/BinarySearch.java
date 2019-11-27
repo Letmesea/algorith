@@ -4,7 +4,7 @@ package base.sortandsearch;
  * @author Letmesea
  * @title: BinarySearch
  * @projectName algorith
- * @description: TODO
+ * @description: 第一个错误的版本（二分查）
  * @date 2019/11/2619:49
  */
 public class BinarySearch {
