@@ -13,8 +13,30 @@ public class ClimbStairs {
 
     public static void main(String[] args){
         ClimbStairs climbStairs = new ClimbStairs();
-        int res = climbStairs.climbStairs(1000);
-        int res1 = climbStairs.cnm(4,2).intValue();
+//        int res = climbStairs.climbStairs(5);
+//        int res1 = climbStairs.cnm(4,2).intValue();
+        int res = climbStairs.climbStairs1(10000000);
+    }
+
+    /**
+     * 斐波那契(爬楼梯)
+     * @param n
+     * @return
+     */
+    public int climbStairs1(int n){
+        int f0=0,f1 = 1,f2=1;
+        if(n==0){
+            return f1;
+        }
+        if(n==1){
+            return f2;
+        }
+        for (int i=1;i<=n;i++){
+            f2 = f0+f1;
+            f0=f1;
+            f1 = f2;
+        }
+        return f2;
     }
     public int climbStairs(int n){
         int nf2 = n/2;
