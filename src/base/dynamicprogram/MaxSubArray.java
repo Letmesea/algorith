@@ -14,7 +14,7 @@ public class MaxSubArray {
 //        int b = 1;
 //        int res = a + b;
 //        System.out.println(res > 0);
-        int a[] = {-2,3,-3,4,-1,2,1,-5,4};
+        int a[] = {-2147483647,-2147483648,-3,-2,0,1};
         MaxSubArray maxSubArray = new MaxSubArray();
         maxSubArray.maxSubArray(a);
 
