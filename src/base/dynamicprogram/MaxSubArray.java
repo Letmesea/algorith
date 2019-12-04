@@ -14,7 +14,7 @@ public class MaxSubArray {
 //        int b = 1;
 //        int res = a + b;
 //        System.out.println(res > 0);
-        int a[] = {-2147483647,-2147483648,-3,-2,0,1};
+        int a[] = {1,2147483647,-3,4,6};
         MaxSubArray maxSubArray = new MaxSubArray();
         maxSubArray.maxSubArray(a);
 
@@ -29,13 +29,13 @@ public class MaxSubArray {
     //{2,1,3,4,-1,2,1,-5,4}
     //{2, 1, 3, 4, -1, -8, 2, 4, 4, 4, -5, 4}
     public int maxSubArray(int[] nums) {
-        int i = 0, j = 0, k = 1;
+        int k = 1;
         int tem = nums[0];
         int maxVal = nums[0];
         while (k < nums.length) {
             int ic = addOver(tem, nums[k]);
             if(ic<nums[k]){
-                maxVal=nums[k];
+                maxVal=maxVal>nums[k]?maxVal:nums[k];
                 tem = nums[k];
                 k++;
                 continue;
@@ -76,13 +76,22 @@ public class MaxSubArray {
         }
     }
 
-    public int isOver(int a, int b) {
-        if (a < 0 && b < 0 && a + b >= 0) {
-            return -1;
-        } else if (a > 0 && b > 0 && a + b <= 0) {
-            return 1;
-        } else {
-            return 0;
+    /**
+     * leetCode解法--没有考虑溢出
+     * @param nums
+     * @return
+     */
+    public int maxSubArray1(int[] nums) {
+        int ans = nums[0];
+        int sum = 0;
+        for(int num: nums) {
+            if(sum > 0) {
+                sum += num;
+            } else {
+                sum = num;
+            }
+            ans = Math.max(ans, sum);
         }
+        return ans;
     }
 }
