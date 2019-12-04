@@ -29,22 +29,6 @@ public class RobMoney {
         int res = rob(a);
     }
     public static int rob(int[] nums) {
-        int sum1 = 0,sum2 = 0;
-        for(int i=0;i<nums.length;i++){
-            if(i%2==0){
-                if(nums[i]>0&&sum1+nums[i]<0){
-                    return Integer.MAX_VALUE;
-                }else{
-                    sum1+=nums[i];
-                }
-            }else{
-                if(nums[i]>0&&sum2+nums[i]<0){
-                    return Integer.MAX_VALUE;
-                }else{
-                    sum2+=nums[i];
-                }
-            }
-        }
-        return sum1>sum2?sum1:sum2;
+        return 0;
     }
 }
