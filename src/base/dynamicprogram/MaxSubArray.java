@@ -14,9 +14,9 @@ public class MaxSubArray {
 //        int b = 1;
 //        int res = a + b;
 //        System.out.println(res > 0);
-        int a[] = {1,2147483647,-3,4,6};
+        int a[] = {2, 1, 3, 4, -1, -8, 2, 4, 4, 4, -5, 4};
         MaxSubArray maxSubArray = new MaxSubArray();
-        maxSubArray.maxSubArray(a);
+        maxSubArray.maxSubArray1(a);
 
     }
 
@@ -87,6 +87,7 @@ public class MaxSubArray {
         for(int num: nums) {
             if(sum > 0) {
                 sum += num;
+//                sum = addOver(sum,num);
             } else {
                 sum = num;
             }
