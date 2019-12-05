@@ -1,5 +1,7 @@
 package base.dynamicprogram;
 
+import java.util.*;
+
 /**
  * @author Letmesea
  * @title: RobMoney
@@ -25,9 +27,52 @@ package base.dynamicprogram;
  */
 public class RobMoney {
     public static void main(String[] args){
-
+        int a[] = {2,1,1,3,1};
+        int res = rob(a);
     }
-    public int rob(int[] nums) {
-        return 0;
+    //2,1,1,3,1   2,4,0,1,1   1,2,3,8,5,7,6   1,2,3,4,5,6  2,1,1,2
+
+    /**
+     * 打家劫舍（会比较耗时）
+     * @param nums
+     * @return
+     */
+    public static int rob(int[] nums) {
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i=0;i<nums.length;i++){
+            map.put(i,nums[i]);
+        }
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                return o1.getValue().compareTo(o2.getValue());
+            }
+        });
+        int j=list.size()-2;
+        int sum=list.get(list.size()-1).getValue();
+        List<Integer> list1 = new ArrayList<>();
+        list1.add(list.get(list.size()-1).getKey());
+        while (j>=0){
+            boolean isNbr = false;
+            for(int i=0;i<list1.size();i++){
+                if(Math.abs(list.get(j).getKey()-list1.get(i))==1){
+                    isNbr = true;
+                    break;
+                }
+            }
+            if(isNbr){
+                j--;
+            }else{
+                if(sum+list.get(j).getValue()<0){
+                    return Integer.MAX_VALUE;
+                }else{
+                    sum+=list.get(j).getValue();
+                    list1.add(list.get(j).getKey());
+                    j--;
+                }
+            }
+        }
+        return sum;
     }
 }
