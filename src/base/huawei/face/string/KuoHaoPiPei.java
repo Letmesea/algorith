@@ -23,6 +23,9 @@ public class KuoHaoPiPei {
 
                     if(c=='('&&ck==')'||c=='['&&ck==']'||c=='{'&&ck=='}'){
                         stack.pop();
+                    }else{
+                        System.out.println(false);
+                        break;
                     }
                 }
             }
