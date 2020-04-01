@@ -1,4 +1,4 @@
-package base.huawei.face;
+package base.huawei.face.string;
 
 import java.util.Scanner;
 import java.util.Stack;
