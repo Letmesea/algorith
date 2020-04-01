@@ -1,4 +1,4 @@
-package base.huawei.face;
+package base.huawei.face.string;
 
 import java.util.Scanner;
 import java.util.Stack;
@@ -23,6 +23,9 @@ public class KuoHaoPiPei {
 
                     if(c=='('&&ck==')'||c=='['&&ck==']'||c=='{'&&ck=='}'){
                         stack.pop();
+                    }else{
+                        System.out.println(false);
+                        break;
                     }
                 }
             }

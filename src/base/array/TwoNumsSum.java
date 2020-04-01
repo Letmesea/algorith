@@ -1,6 +1,7 @@
 package base.array;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @author Letmesea
@@ -51,6 +52,24 @@ public class TwoNumsSum {
             }
         }
         return res;
+    }
+
+    /**
+     * 一遍哈希
+     * @param arr
+     * @param value
+     * @return
+     */
+    public static int[] twoSum1(int[] arr,int value){
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i=0;i<arr.length;i++){
+            int cha = value-arr[i];
+            if(map.containsKey(cha)){
+                return new int[]{map.get(cha),i};
+            }
+            map.put(arr[i],i);
+        }
+        return new int[]{};
     }
 
     public static int myBinarySearch(int[] arr, int value) {
