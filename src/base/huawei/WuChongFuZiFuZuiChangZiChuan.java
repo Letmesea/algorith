@@ -1,5 +1,6 @@
 package base.huawei;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,4 +22,25 @@ public class WuChongFuZiFuZuiChangZiChuan {
             }
             return ans;
         }
+
+    /**
+     * 不含重复字符最长子串
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring1(String s) {
+        int n = s.length();
+        HashMap<Character,Integer> map = new HashMap<>();
+        int ans = 0, i = 0, j = 0;
+        for(;j<n;j++) {
+            if (map.containsKey(s.charAt(j))) {
+                i = map.get(s.charAt(j))+1>i?map.get(s.charAt(j))+1:i;
+            }
+            ans = j-i+1>ans?j-i+1:ans;
+            map.put(s.charAt(j),j);
+        }
+
+        return ans;
+    }
+
 }
