@@ -5,6 +5,7 @@ import java.util.Stack;
 public class LongestValidParentheses {
     public static void main(String[] args){
         longestValidParentheses(")(())))");
+        "".equals("");
     }
 
     /**
