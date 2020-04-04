@@ -1,4 +1,4 @@
-package base.huawei;
+package base.huawei.face.string;
 
 import java.util.Scanner;
 //abac123,4abac
