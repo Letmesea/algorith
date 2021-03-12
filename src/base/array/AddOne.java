@@ -44,5 +44,10 @@ public class AddOne {
     }
 
     public static void main(String[] args){
+        int [] a = {1,9,9};
+        a=plusOne(a);
+        for (int a1 :a){
+            System.out.print(a1);
+        }
     }
 }

@@ -1,6 +1,10 @@
 package base.array;
 
+import javafx.scene.effect.SepiaTone;
+
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Letmesea
@@ -33,6 +37,21 @@ public class ArrayExistDup {
         Arrays.sort(nums);
         for (int i=0;i<nums.length-1;i++){
             if(nums[i]==nums[i+1]){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * set集合
+     * @param nums
+     * @return
+     */
+    public boolean containsDuplicate1(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int a:nums){
+            if(!set.add(a)){
                 return true;
             }
         }
@@ -106,6 +125,6 @@ public class ArrayExistDup {
     public static void main(String[] args){
         int a[] = {3,2,1};
         ArrayExistDup aed = new ArrayExistDup();
-        System.out.println(aed.containsDuplicate(a));
+        System.out.println(aed.containsDuplicate1(a));
     }
 }
