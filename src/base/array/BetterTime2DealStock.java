@@ -131,9 +131,11 @@ public class BetterTime2DealStock {
                 }
             }
         }
-        for (int i=kn-1;i>0;i--){
+        int ch[][] = new int[kn][kn];
+        for (int i=0;i<=kn;i++){
 
         }
+
         return profit;
     }
 
@@ -166,8 +168,9 @@ public class BetterTime2DealStock {
         int we =Double.valueOf("0").intValue();
         BetterTime2DealStock bt2ds = new BetterTime2DealStock();
 //        int a[] = {1,2,4,2,5,7,2,4,9,0};
-        int a[] = {3,2,6,5,0,3};
+        int a[] = {1,2,4,2,5,7,0,4,9,0};
         System.out.println(bt2ds.maxProfit1(1,a));
         //[7,5,3,1,4,6]
+
     }
 }

@@ -1,5 +1,8 @@
 package base.huawei;
 
+/**
+ * 最长回文子串
+ */
 public class longestPalindrome {
     /**
      * 暴力
